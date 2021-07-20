@@ -1,0 +1,44 @@
+@media screen and (orientation: portrait){
+    #side-applet {
+        position: relative;
+        display: block;
+        height: calc(100vh - 20rem);
+        width: 90vw;
+        margin: auto;
+    }
+}
+
+@media screen and (orientation: landscape){
+    #side-applet {
+        position:fixed;
+        top: 3rem;
+        height:calc(100% - 8rem);
+        width: 20rem;
+        margin-top: 2rem;
+    }
+}
+
+#side-applet {
+    background-color: #333;
+    padding: 1rem;
+    color: #F9F7EC;
+    font-family: 'Roboto', sans-serif;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    overflow-y: auto;
+}
+
+#side-applet h3 {
+    text-align: center;
+    font-size: 2rem;
+    padding-top: 0.25rem;
+    font-family: 'Alegreya Sans SC', 'Roboto', sans-serif;
+    font-variant: small-caps;
+    padding-bottom: 0.5rem;
+}
+
+#side-applet hr {
+    width: 100%;
+    margin-top: 0.25rem;
+    border: 1px solid #aaa;
+}
