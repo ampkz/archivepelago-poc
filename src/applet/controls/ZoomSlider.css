@@ -1,0 +1,18 @@
+.sideways-text {
+    color:#F9F7EC;
+    font-size: 20px;
+    position: absolute;
+    font-variant: small-caps;
+    writing-mode: vertical-rl;
+    text-orientation:mixed;
+    margin-left: 25px;
+}
+
+#zoom-slider-container{
+    height: 300px;
+    position: fixed;
+    right: 0;
+    top: calc(50% - 150px);
+    background-color: #333;
+    padding:20px;
+}

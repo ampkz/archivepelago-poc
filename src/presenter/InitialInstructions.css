@@ -1,0 +1,40 @@
+sup {
+    vertical-align: baseline;
+    position: relative;
+    top: -3px;
+  }
+
+.welcome-msg {
+    padding: 15px;
+    font-size: 20px;
+}
+
+.welcome-msg p {
+    font-size: 20px;
+}
+
+.instructions {
+    padding-top: 40px;
+}
+
+@media screen and (orientation:portrait){
+    #initial-instructions, #touch-instructions {
+        display: none;
+    }
+    
+    #orientation-instructions{
+        display: block;
+    }
+}
+
+@media screen and (orientation:landscape){
+    #orientation-instructions {
+        display: none;
+    }
+}
+
+@media screen and (orientation:landscape) and (pointer:fine){
+    #touch-instructions {
+        display: none;
+    }
+}
