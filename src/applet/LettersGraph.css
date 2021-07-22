@@ -1,0 +1,66 @@
+#letters-graph {
+    width: 100vw;
+    height: 100vh;
+    background-color: #43E0F0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.loading-text {
+    font-size: 200px;
+    font-family: 'Alegreya Sans SC', 'Roboto', sans-serif;
+}
+
+svg {
+    width: 100%;
+    height: 100%;
+    cursor:all-scroll;
+}
+
+.links line {
+    stroke: #333;
+    stroke-width: 6px;
+}
+
+.people, .letter-nodes {
+    cursor: pointer;
+}
+
+.selected-person {
+    fill: #925DD9;
+    stroke:black;
+    stroke-width: 15px;
+    transition: fill 50ms;
+}
+
+.unselected-person {
+    fill: #43F09F;
+    stroke: black;
+    stroke-width: 15px;
+}
+
+.full-names, .initials {
+    font-family: 'Alegreya Sans SC', sans-serif;
+}
+
+.initials text {
+    font-size: 70px;
+}
+
+.full-names text {
+    font-size: 30px;
+}
+
+.selected-letters {
+    fill: #925DD9;
+    stroke: black;
+    stroke-width: 5px;
+}
+
+.unselected-letters {
+    fill: #D9D53D;
+    stroke: black;
+    stroke-width: 5px;
+}

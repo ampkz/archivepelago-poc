@@ -12,7 +12,7 @@ export default function ZoomSlider() {
             <Slider
                 value = {zoomVal}
                 orientation = 'vertical'
-                defaultvalue = {INIT_ZOOM}
+                defaultValue = {INIT_ZOOM}
                 aria-labelledby = 'zoom-vertical-slider'
                 step = {ZOOM_STEP}
                 min = {MIN_ZOOM}

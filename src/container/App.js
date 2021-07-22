@@ -4,6 +4,7 @@ import { SITE_VERSION } from '../siteConfig';
 import { INITIAL_INSTRUCTIONS } from '../presenter/presenters';
 import InitialInstructions from '../presenter/InitialInstructions';
 import ZoomSlider from '../applet/controls/ZoomSlider';
+import LettersGraph from '../applet/LettersGraph';
 
 function App() {
   const [presenter, setPresenter] = React.useState(INITIAL_INSTRUCTIONS);
@@ -29,6 +30,7 @@ function App() {
           {renderSidePresenter()}
         </section>
         <ZoomSlider />
+        <LettersGraph />
       </main>
     </div>
   );
