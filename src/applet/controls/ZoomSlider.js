@@ -3,11 +3,16 @@ import Slider from '@material-ui/core/Slider';
 import { INIT_ZOOM, MIN_ZOOM, MAX_ZOOM, ZOOM_STEP } from "../appletConfig";
 import './ZoomSlider.css';
 
-export default function ZoomSlider() {
+function ZoomSlider({handleZoomChange}, ref) {
     const [zoomVal, setZoomVal] = React.useState(INIT_ZOOM);
     
-    return <>
-        <div id='zoom-slider-container'>
+    React.useImperativeHandle(ref, () => ({
+        handleZoomVal(value){
+            setZoomVal(value)
+        }
+    }), []);
+
+    return <div id='zoom-slider-container'>
             <span className='sideways-text'>zoom</span>
             <Slider
                 value = {zoomVal}
@@ -17,7 +22,9 @@ export default function ZoomSlider() {
                 step = {ZOOM_STEP}
                 min = {MIN_ZOOM}
                 max = {MAX_ZOOM}
+                onChange = {handleZoomChange}
             />
         </div>
-    </>
 }
+
+export default React.forwardRef(ZoomSlider);

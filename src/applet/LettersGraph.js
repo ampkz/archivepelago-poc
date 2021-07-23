@@ -4,11 +4,20 @@ import * as d3 from "d3";
 import letter from '../img/svg/letter.svg';
 import { INIT_ZOOM, MIN_ZOOM, MAX_ZOOM, LETTERS_URL, PEOPLE_URL, LINKS_URL } from './appletConfig';
 
-export default function LettersGraph() {    
+function LettersGraph({ handleZoomChange }, ref) {    
     React.useEffect(() => {
         drawGraph();
     }, [])
     
+    React.useImperativeHandle(ref, () => ({
+        setZoomVal(value){
+            d3.select("svg").call(zoom.transform, d3.zoomIdentity.translate(currentX, currentY).scale(value));
+        }
+    }), []);
+
+    const [currentX, setCurrentX] = React.useState(0);
+    const [currentY, setCurrentY] = React.useState(0);
+
     const personNodeR = 90,
         selectedPersonNodeR = personNodeR + 15,
         letterNodeR = 40,
@@ -73,14 +82,16 @@ export default function LettersGraph() {
 
     }
 
-
     const zoom = d3.zoom().scaleExtent([MIN_ZOOM, MAX_ZOOM]).on("zoom", event => {
 
         let zoomTo = event.transform.k;
 
         svgGraph.attr("transform", event.transform);
+        
+        setCurrentX(event.transform.x);
+        setCurrentY(event.transform.y);
 
-        // this.props.onZoom(event.transform.k);
+        handleZoomChange(event.transform.k);
 
         if(zoomTo <= scaleNameBreakpoint && nameToggled)
         {
@@ -256,3 +267,5 @@ export default function LettersGraph() {
             </svg>
     </section>
 }
+
+export default React.forwardRef(LettersGraph);

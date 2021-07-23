@@ -9,12 +9,24 @@ import LettersGraph from '../applet/LettersGraph';
 function App() {
   const [presenter, setPresenter] = React.useState(INITIAL_INSTRUCTIONS);
 
+  const zoomRef = React.useRef();
+  const lettersGraphRef = React.useRef();
+
   const renderSidePresenter = () => {
     switch(presenter){
       default:
       case INITIAL_INSTRUCTIONS:
         return <InitialInstructions />;
     }
+  }
+
+  const setZoomSliderVal = (value) => {
+    if(zoomRef.current) zoomRef.current.handleZoomVal(value);
+  }
+
+  const handleZoomValChange = (event, value) => {
+    if(lettersGraphRef.current.setZoomVal(value));
+    //if(zoomRef.current) zoomRef.current.handleZoomVal(value);
   }
   
   return (
@@ -29,8 +41,8 @@ function App() {
         <section id="side-presenter">
           {renderSidePresenter()}
         </section>
-        <ZoomSlider />
-        <LettersGraph />
+        <ZoomSlider ref={zoomRef} handleZoomChange={handleZoomValChange} />
+        <LettersGraph ref={lettersGraphRef} handleZoomChange={setZoomSliderVal} />
       </main>
     </div>
   );
