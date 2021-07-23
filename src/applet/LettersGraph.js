@@ -3,8 +3,9 @@ import './LettersGraph.css';
 import * as d3 from "d3";
 import letter from '../img/svg/letter.svg';
 import { INIT_ZOOM, MIN_ZOOM, MAX_ZOOM, LETTERS_URL, PEOPLE_URL, LINKS_URL } from './appletConfig';
+import { ARTIST, LETTERS } from '../presenter/presenters';
 
-function LettersGraph({ handleZoomChange, onSelectArtist }, ref) {    
+function LettersGraph({ handleZoomChange, onSelectNode }, ref) {    
     React.useEffect(() => {
         drawGraph();
     }, [])
@@ -31,7 +32,8 @@ function LettersGraph({ handleZoomChange, onSelectArtist }, ref) {
     let nameToggled = true,
         selectedPerson = null,
         selectedLetters = null,
-        svgGraph = null;
+        svgGraph = null,
+        lettersList = [];
 
     const deselectAll = () => {
             
@@ -58,9 +60,13 @@ function LettersGraph({ handleZoomChange, onSelectArtist }, ref) {
         selectedLetters.attr("r", selectedLetterNodeR);
         selectedLetters.classed("selected-letters", true).classed("unselected-letters", false);
 
-        // this.props.onSelectNode(SHOW_LETTERS, lettersList.filter((letter) => {
-        //     return (letter.From === source && letter.To === target) || (letter.From === target && letter.To === source)
-        // }));
+        let source = StringifyName(d.source),
+            target = StringifyName(d.target);
+
+        onSelectNode(LETTERS, lettersList.filter((letter) => {
+            return (letter.From === source && letter.To === target) || (letter.From === target && letter.To === source)
+        }))
+
     }
 
     const selectPerson = (event, d) => {
@@ -72,7 +78,7 @@ function LettersGraph({ handleZoomChange, onSelectArtist }, ref) {
         selectedPerson.attr("r", selectedPersonNodeR);
         selectedPerson.classed("selected-person", true).classed("unselected-person", false);
 
-        onSelectArtist(d);
+        onSelectNode(ARTIST, d);
     }
 
     const zoom = d3.zoom().scaleExtent([MIN_ZOOM, MAX_ZOOM]).on("zoom", event => {
@@ -114,7 +120,7 @@ function LettersGraph({ handleZoomChange, onSelectArtist }, ref) {
             .text("LOADING");
 
         const people = await d3.csv(PEOPLE_URL);
-        const lettersList = await d3.csv(LETTERS_URL);
+        lettersList = await d3.csv(LETTERS_URL);
         const letterLinks = await d3.json(LINKS_URL);
 
         svgGraph.select(".loading-text").remove();

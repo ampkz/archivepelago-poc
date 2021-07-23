@@ -1,2 +1,3 @@
 export const INITIAL_INSTRUCTIONS = "Initial Instructions";
-export const SHOW_ARTIST = "Show Artis";
+export const ARTIST = "Artist";
+export const LETTERS = "Letters";
