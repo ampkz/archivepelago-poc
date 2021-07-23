@@ -4,7 +4,7 @@ import * as d3 from "d3";
 import letter from '../img/svg/letter.svg';
 import { INIT_ZOOM, MIN_ZOOM, MAX_ZOOM, LETTERS_URL, PEOPLE_URL, LINKS_URL } from './appletConfig';
 
-function LettersGraph({ handleZoomChange }, ref) {    
+function LettersGraph({ handleZoomChange, onSelectArtist }, ref) {    
     React.useEffect(() => {
         drawGraph();
     }, [])
@@ -32,14 +32,6 @@ function LettersGraph({ handleZoomChange }, ref) {
         selectedPerson = null,
         selectedLetters = null,
         svgGraph = null;
-
-    const stringifyName = (nameObj) => {
-        if(String(nameObj.SecondName).length > 0){
-            return nameObj.FirstName + ' ' + nameObj.SecondName + ' ' + nameObj.LastName;
-        }else{
-            return nameObj.FirstName + ' ' + nameObj.LastName;
-        }
-    }
 
     const deselectAll = () => {
             
@@ -80,6 +72,7 @@ function LettersGraph({ handleZoomChange }, ref) {
         selectedPerson.attr("r", selectedPersonNodeR);
         selectedPerson.classed("selected-person", true).classed("unselected-person", false);
 
+        onSelectArtist(d);
     }
 
     const zoom = d3.zoom().scaleExtent([MIN_ZOOM, MAX_ZOOM]).on("zoom", event => {
@@ -127,7 +120,7 @@ function LettersGraph({ handleZoomChange }, ref) {
         svgGraph.select(".loading-text").remove();
 
         const simulation = d3.forceSimulation(people)
-            .force("link", d3.forceLink(letterLinks).id(d => {return stringifyName(d);}).distance(linkDistance).strength(linkStren))
+            .force("link", d3.forceLink(letterLinks).id(d => {return StringifyName(d);}).distance(linkDistance).strength(linkStren))
             .force("charge", d3.forceManyBody().strength(linkDistance * forceStrengthScale))
             .force("center", d3.forceCenter(0, 0))
             .force("collide", d3.forceCollide().radius(personNodeR))
@@ -267,5 +260,14 @@ function LettersGraph({ handleZoomChange }, ref) {
             </svg>
     </section>
 }
+
+export const StringifyName = (nameObj) => {
+    if(String(nameObj.SecondName).length > 0){
+        return nameObj.FirstName + ' ' + nameObj.SecondName + ' ' + nameObj.LastName;
+    }else{
+        return nameObj.FirstName + ' ' + nameObj.LastName;
+    }
+}
+
 
 export default React.forwardRef(LettersGraph);
