@@ -1,7 +1,7 @@
 import React from 'react';
 import './Artist.css';
 import Chip from '@material-ui/core/Chip';
-import { StringifyName } from '../applet/LettersGraph';
+import { StringifyName } from '../_helpers';
 
 export default function Artist({artistDetails}){
     return (

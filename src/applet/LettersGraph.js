@@ -4,6 +4,7 @@ import * as d3 from "d3";
 import letter from '../img/svg/letter.svg';
 import { INIT_ZOOM, MIN_ZOOM, MAX_ZOOM, LETTERS_URL, PEOPLE_URL, LINKS_URL } from './appletConfig';
 import { ARTIST, LETTERS } from '../presenter/presenters';
+import { StringifyName } from '../_helpers';
 
 function LettersGraph({ handleZoomChange, onSelectNode }, ref) {    
     React.useEffect(() => {
@@ -96,11 +97,11 @@ function LettersGraph({ handleZoomChange, onSelectNode }, ref) {
         {
             nameToggled = false;
             d3.select(".full-names").style("visibility", "hidden");
-            d3.select(".initials").style("visibility", "visible")
+            d3.select(".initials").style("visibility", "visible");
         }else if(zoomTo >= scaleNameBreakpoint && !nameToggled){
             nameToggled = true;
             d3.select(".full-names").style("visibility", "visible");
-            d3.select(".initials").style("visibility", "hidden")
+            d3.select(".initials").style("visibility", "hidden");
         }
     })
 
@@ -266,14 +267,5 @@ function LettersGraph({ handleZoomChange, onSelectNode }, ref) {
             </svg>
     </section>
 }
-
-export const StringifyName = (nameObj) => {
-    if(String(nameObj.SecondName).length > 0){
-        return nameObj.FirstName + ' ' + nameObj.SecondName + ' ' + nameObj.LastName;
-    }else{
-        return nameObj.FirstName + ' ' + nameObj.LastName;
-    }
-}
-
 
 export default React.forwardRef(LettersGraph);
