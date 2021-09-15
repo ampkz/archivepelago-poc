@@ -85,7 +85,16 @@ function LettersGraph({ handleZoomChange, onSelectNode }, ref) {
     const zoom = d3.zoom().scaleExtent([MIN_ZOOM, MAX_ZOOM]).on("zoom", event => {
 
         let zoomTo = event.transform.k;
-
+        if(zoomTo <= scaleNameBreakpoint && nameToggled)
+        {
+            nameToggled = false;
+            d3.select(".full-names").style("visibility", "hidden");
+            d3.select(".initials").style("visibility", "visible");
+        }else if(zoomTo >= scaleNameBreakpoint && !nameToggled){
+            nameToggled = true;
+            d3.select(".full-names").style("visibility", "visible");
+            d3.select(".initials").style("visibility", "hidden");
+        }
         svgGraph.attr("transform", event.transform);
         
         setCurrentX(event.transform.x);
@@ -248,6 +257,7 @@ function LettersGraph({ handleZoomChange, onSelectNode }, ref) {
             if (!event.active) simulation.alphaTarget(0);
             d.fx = null;
             d.fy = null;
+            console.log("x", d.x);
         }
         
         let drag_handler = d3.drag()
